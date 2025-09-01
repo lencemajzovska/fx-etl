@@ -1,0 +1,28 @@
+# Cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# SQLite database and log files
+fx.db
+fx.log
+test_fx.db
+
+# Environment files
+.env
+
+# VS Code settings
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Windows system file
+desktop.ini
