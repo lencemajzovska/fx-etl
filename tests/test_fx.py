@@ -6,7 +6,6 @@ import sqlite3
 import pytest
 import fx
 
-
 @pytest.fixture(autouse=True)
 def clean_db(tmp_path, monkeypatch):
     """
@@ -19,7 +18,6 @@ def clean_db(tmp_path, monkeypatch):
     yield
     # No explicit cleanup needed – pytest deletes tmp_path automatically
 
-
 def test_init_db_creates_table():
     """Verify that init_db() creates the fx_rates table."""
     fx.init_db()
@@ -31,7 +29,6 @@ def test_init_db_creates_table():
             "SELECT name FROM sqlite_master WHERE type='table' AND name='fx_rates'"
         )
         assert cur.fetchone() is not None
-
 
 def test_save_rates_inserts_data():
     """Verify that save_rates() inserts rows into the table."""
@@ -47,7 +44,6 @@ def test_save_rates_inserts_data():
         cur.execute("SELECT COUNT(*) FROM fx_rates")
         count = cur.fetchone()[0]
         assert count == 2
-
 
 def test_save_rates_ignores_duplicates():
     """
@@ -68,13 +64,12 @@ def test_save_rates_ignores_duplicates():
         count = cur.fetchone()[0]
         assert count == 2
 
-
 def test_fetch_rates_monkeypatch(monkeypatch):
     """
     Verify that fetch_rates() can be monkeypatched to avoid real API calls.
     This allows us to test the logic without hitting the external API.
     """
-
+    
     # Define mock version of fetch_rates (replaces the real API call)
     def mock_fetch():
         return {
