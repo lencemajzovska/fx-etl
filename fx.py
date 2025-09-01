@@ -14,18 +14,22 @@ import requests
 import os
 from dotenv import load_dotenv
 
+
 # Load API key from .env
 load_dotenv()
 API_KEY = os.getenv("FX_API_KEY")
+
 
 # File paths
 DB_PATH: Path = Path("fx.db")
 LOG_PATH: Path = Path("fx.log")
 
+
 # API configuration
 API_URL: str = "http://api.exchangerate.host/live"
 API_PARAMS = {"access_key": API_KEY, "source": "EUR"}
 HTTP_TIMEOUT: int = 15  # seconds
+
 
 # Logging configuration
 logging.basicConfig(
@@ -34,6 +38,7 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s",
     encoding="utf-8",
 )
+
 
 def init_db():
     """Create the fx_rates table if it doesn't already exist."""
@@ -51,6 +56,7 @@ def init_db():
         )
     logging.info("Database setup complete.")
 
+
 def fetch_rates():
     """Fetch FX rates from API and return parsed JSON dict."""
     if not API_KEY:
@@ -66,6 +72,7 @@ def fetch_rates():
 
     logging.info("Successfully fetched FX rates (source=%s)", data["source"])
     return data
+
 
 def save_rates(base, quotes, date_str):
     """Insert FX rates into SQLite database."""
@@ -84,6 +91,7 @@ def save_rates(base, quotes, date_str):
 
     logging.info("Inserted %d FX rates for %s.", len(rows), date_str)
     return len(rows)
+
 
 def main():
     """Run the ETL pipeline end-to-end."""
